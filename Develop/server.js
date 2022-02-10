@@ -51,7 +51,7 @@ fs.readFile("./db/db.json","utf-8",(err,data)=>{
         const parsedNotes=JSON.parse(data)
         parsedNotes.push(newNote)
 
-        //write the update reviews on the file
+        //write the new note on the file
         fs.writeFile('./db/db.json',JSON.stringify(parsedNotes,null,4),(writeErr)=>{
             writeErr
             //log if notes were updated successfully or not 
@@ -86,6 +86,7 @@ app.delete('/api/notes/:id', (req, res) => {
     else {
       const { id } = req.params;
       console.log(id)
+      
       // Iterate through the terms name to check if it matches `req.params.id`
       for (let i = 0; i < notes.length; i++) {
         console.log(`Note ${notes[i].note_id}`)
@@ -94,25 +95,22 @@ app.delete('/api/notes/:id', (req, res) => {
 
           notes.splice(i, 1)
           console.log(`Item number ${id} removed!`)
-          return res.send
+          
+          //return res.send
         }
       }
 
-      //write the update reviews on the file
+      
       fs.writeFile('./db/db.json', JSON.stringify(notes, null, 4), (writeErr) => {
         writeErr
           //log if notes were updated successfully or not 
           ? console.error(writeErr)
           : console.info('Done!')
-      });
-      //}
-      // }
-
+      })
 
     }
-  });
-
-
+  })
+  
   // Return a message if the note doesn't exist in our DB
   return res.json('No notes found for this ID');
 
@@ -121,4 +119,4 @@ app.delete('/api/notes/:id', (req, res) => {
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
-);
+)
