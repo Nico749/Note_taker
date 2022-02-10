@@ -76,6 +76,7 @@ fs.readFile("./db/db.json","utf-8",(err,data)=>{
 
 app.delete('/api/notes/:id', (req, res) => {
   //log that a delete request was received
+  var filteredNotes=[]
   console.log(`New ${req.method} request received for the id# ${req.params.id} note`)
 
 
@@ -85,34 +86,36 @@ app.delete('/api/notes/:id', (req, res) => {
     }
     else {
       const { id } = req.params;
-      console.log(id)
-      
+      //console.log(id)
+      if (!id){return res.json('No notes found for this ID')}
+      else{
       // Iterate through the terms name to check if it matches `req.params.id`
       for (let i = 0; i < notes.length; i++) {
-        console.log(`Note ${notes[i].note_id}`)
+        //console.log(`Note ${notes[i].note_id}`)
 
-        if (id === notes[i].note_id) {
-
-          notes.splice(i, 1)
-          console.log(`Item number ${id} removed!`)
-          
-          //return res.send
-        }
+        //if (id === notes[i].note_id) {
+          filteredNotes = notes.filter(el => el.note_id != id )
+          //notes.splice(i, 1)
+          //console.log(`Item number ${id} removed!`)
+        
+        //}
       }
-
       
-      fs.writeFile('./db/db.json', JSON.stringify(notes, null, 4), (writeErr) => {
+      
+      fs.writeFile('./db/db.json', JSON.stringify(filteredNotes, null, 4), (writeErr) => {
         writeErr
           //log if notes were updated successfully or not 
           ? console.error(writeErr)
           : console.info('Done!')
       })
 
-    }
-  })
+    
+
+    
+  }}})
   
   // Return a message if the note doesn't exist in our DB
-  return res.json('No notes found for this ID');
+  return res.json('Note successfully deleted')
 
 })
 
