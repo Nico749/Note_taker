@@ -103,13 +103,16 @@ app.delete('/api/notes/:id', (req, res) => {
     else {
       const { id } = req.params;
       //console.log(id)
-      if (!id){return res.json('Please insert a valid id')}
-      else{
+      //if (!id){return res.json('Please insert a valid id')}
+      //else{
       // Iterate through the terms name to check if it matches `req.params.id`
       for (let i = 0; i < notes.length; i++) {
+        if (id === notes[i].note_id){
+
         //create a new array of filtered notes without the one that has the same id we insert
         filteredNotes = notes.filter(el => el.note_id != id )
-      }
+        
+      
       
       
       fs.writeFile('./db/db.json', JSON.stringify(filteredNotes, null, 4), (writeErr) => {
@@ -118,15 +121,19 @@ app.delete('/api/notes/:id', (req, res) => {
           ? console.error(writeErr)
           : console.info('Done!')
       })
-
+    return res.json(`Note ${id} deleted`)
+    }
+    }
+    return res.json('No match found');
     
 
     
-  }}})
+  //}
+}})
   
   // Return a message if the note doesn't exist in our DB
   //return res.json(notes[i])
-  return res.json('Note successfully deleted')
+  //return res.json('Note successfully deleted')
 
 })
 
