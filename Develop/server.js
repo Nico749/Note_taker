@@ -12,7 +12,8 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
-//GET request 
+
+//GET requests 
 app.get('/notes', (req, res) => {
   //console that a get request was received  
   console.log(`New ${req.method} request received`)
@@ -24,10 +25,25 @@ app.get('/api/notes', (req, res) => {
     res.json(notes)
 })
 
+app.get('/api/notes/:id', (req, res) => {
+  
+  const requestedId = req.params.id
+
+  for (let i = 0; i < notes.length; i++) {
+    if (requestedId === notes[i].note_id) {
+      return res.json(notes[i])
+    }
+  }
+
+  // Return a message if the term doesn't exist in our DB
+  return res.json('No match found');
+})
+
 app.get('*', (req, res) => { 
   console.log(`New ${req.method} request received`)  
   res.sendFile(path.join(__dirname,"./public/index.html"))
 })
+
 //POST request
 app.post('/api/notes', (req,res) =>{
 //log that a post request was received
@@ -73,7 +89,7 @@ fs.readFile("./db/db.json","utf-8",(err,data)=>{
         }
       });
 
-
+//DELETE request 
 app.delete('/api/notes/:id', (req, res) => {
   //log that a delete request was received
   var filteredNotes=[]
@@ -87,18 +103,12 @@ app.delete('/api/notes/:id', (req, res) => {
     else {
       const { id } = req.params;
       //console.log(id)
-      if (!id){return res.json('No notes found for this ID')}
+      if (!id){return res.json('Please insert a valid id')}
       else{
       // Iterate through the terms name to check if it matches `req.params.id`
       for (let i = 0; i < notes.length; i++) {
-        //console.log(`Note ${notes[i].note_id}`)
-
-        //if (id === notes[i].note_id) {
-          filteredNotes = notes.filter(el => el.note_id != id )
-          //notes.splice(i, 1)
-          //console.log(`Item number ${id} removed!`)
-        
-        //}
+        //create a new array of filtered notes without the one that has the same id we insert
+        filteredNotes = notes.filter(el => el.note_id != id )
       }
       
       
@@ -115,6 +125,7 @@ app.delete('/api/notes/:id', (req, res) => {
   }}})
   
   // Return a message if the note doesn't exist in our DB
+  //return res.json(notes[i])
   return res.json('Note successfully deleted')
 
 })
