@@ -31,7 +31,7 @@ const hide = (elem) => {
   liEl.classList.add('list-group-item');
    notttelist.appendChild(liEl)
    liEl.innerHTML=`${note.title}`
-   return
+   
 
 };
 
