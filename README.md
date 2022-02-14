@@ -1,97 +1,56 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
----
-  
 # Note Taker
-<details>
-  
-<summary>Table of Contents</summary>
 
-  
-<ol>
-  
-<li>
-  
-<a href="#about-the-project">About The Project</a></li>
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Working Application](#working-application)
+* [Project Status](#project-status)
+* [Room for Improvement](#room-for-improvement)
+* [Installation](#installation)
+* [License](#license)
+* [Contact Me](#contact-me)
 
-  
-<ul>
-  
-<li><a href="#built-with">Built With</a></li>
+## General info
 
-<li><a href="#usage">Usage</a></>
-</ul>
+The application allows an user to insert, save and delete simple notes he needs to manage. Once he digits the content of a note, a save button can be clicked and save the note; if he clicks on the red bin aside the note title, that note will be deleted; if he clicks on a specific note, it will be displayed as the active note
 
-</li>
+## Technologies
 
-<li>
+Project is created with:
+* HTML
+* JavaScript
+* CSS
+* Node.js
+* Express.js
+* Deployed on Heroku
 
-<a href="#getting-started">Getting Started</a>
+## Working Application
 
-<ul>
+The following image shows the web application's appearance:
+![Weather API appearance](./demo_screenshot.png)
 
-<li><a href="#installation">Installation</a>
+## Project Status
 
-</ul>
+* Backend working as expected
+* Frontend need to be reviewed 
 
-</li>
-<li><a href="#license">License</a></>
-  
-<li><a href="#contact">Contact</a></>
-  
-</ol>
-  
-</details>
+## Room for Improvement
 
- ## About The Project
+Room for improvement:
+* Connect the backend with the frontend properly, so if we click on every icon, this works as it should
+* Add a new note dynamically because at the moment to see a new note added to our list we need to restart the app
 
+## Installation
 
- ![ProductScreen Shot](./assets/product.gif)
-
-
- This is an application  that can be used to write and save notes. This application uses an Express.js back end and will save and retrieve note data from a JSON file. The users can organize their thoughts and keep track of tasks I need to complete.
-
-<p align = "right">(<a href="#top">back to top</a>)</>
-
- ## Built With
-*  [Node.js](https://nodejs.org/) 
-* Express.js 
-* JSON to store notes 
-<p align = "right"> (<a href="#top">back to top</a>)</>
-
-## Usage
-
-  Following image shows this application's functionality(questions).
-
- ![This is an image of the product.](./assets/product.png)
-
-<p align ="right">(<a href="#top">back to top</a>)</>
-
-## Getting Started
-
-To get a local copy up and running follow these simple example steps.
-
- ## Installation
-
- The application will be invoked by using the following command:
-
-
- `git clone git@github.com:ayacomputer/11-Note-Taker.git`
-
-<p align="right">(<a href="#top">back to top</a>)</>
+The application is deployed on heroku on: (https://damp-plateau-74738.herokuapp.com/)
 
 ## License
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 Distributed under MIT License.
 
-See LICENSE.txt for more information.
+## Contact me 
 
-<p align ="right">(<a href="#top">back to top</a>)</>
-
- ## Contact Me
+Created by [Nico Pasqualini](https://nico749.github.io/Personal-portfolio-/) - feel free to contact me!
 
 
-
-<p align="right">(<a href="#top">back to top</a>)</>

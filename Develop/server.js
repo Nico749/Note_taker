@@ -89,7 +89,7 @@ app.post('/api/notes', (req, res) => {
 
 //DELETE request 
 app.delete('/api/notes/:id', (req, res) => {
-  //log that a delete request was received
+  //log that a delete request was received and initialize new array of notes to write
   var filteredNotes = []
   console.log(`New ${req.method} request received for the id# ${req.params.id} note`)
 
