@@ -10,6 +10,7 @@ if (window.location.pathname === '/notes') {
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
   noteList = document.querySelectorAll('.list-container .list-group');
+  var notttelist=document.querySelector('.list-group')
 }
 
 // Show an element
@@ -20,6 +21,18 @@ const show = (elem) => {
 // Hide an element
 const hide = (elem) => {
   elem.style.display = 'none';
+};
+
+
+ // Returns HTML element with or without a delete button
+ const createNote = (note) => {
+   
+  const liEl = document.createElement('li');
+  liEl.classList.add('list-group-item');
+   notttelist.appendChild(liEl)
+   liEl.innerHTML=`${note.title}`
+   return
+
 };
 
 // activeNote is used to keep track of the note in the textarea
@@ -40,7 +53,14 @@ const saveNote = (note) =>
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(note),
+  })
+    .then(()=>{
+      alert("Note added to your notes!!")
+      createNote(note)
+    
   });
+    
+  
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
@@ -48,7 +68,11 @@ const deleteNote = (id) =>
     headers: {
       'Content-Type': 'application/json',
     },
-  });
+  })
+   .then(()=>{
+     alert ("Note deleted!")
+     //deleteNote(`${id}`)
+})
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);

@@ -4,8 +4,8 @@ const fs = require('fs')
 // Helper method for generating unique ids
 const uid = require('./helpers/uid')
 
-const notes=require ('./db/db.json')
-const PORT = 3001;
+const notes = require('./db/db.json')
+const PORT = process.env.PORT ||3001;
 
 const app = express()
 //middlewares
@@ -20,13 +20,12 @@ app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, './public/notes.html'))
 });
 
-app.get('/api/notes', (req, res) => { 
-    console.log(`New ${req.method} request received`)
-    res.json(notes)
+app.get('/api/notes', (req, res) => {
+  res.json(notes)
 })
 
 app.get('/api/notes/:id', (req, res) => {
-  
+
   const requestedId = req.params.id
 
   for (let i = 0; i < notes.length; i++) {
@@ -39,60 +38,59 @@ app.get('/api/notes/:id', (req, res) => {
   return res.json('No match found');
 })
 
-app.get('*', (req, res) => { 
-  console.log(`New ${req.method} request received`)  
-  res.sendFile(path.join(__dirname,"./public/index.html"))
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/index.html"))
 })
 
 //POST request
-app.post('/api/notes', (req,res) =>{
-//log that a post request was received
-console.log(`New ${req.method} request received`)
+app.post('/api/notes', (req, res) => {
+  //log that a post request was received
+  console.log(`New ${req.method} request received`)
 
-const {title,text} = req.body
-//check if all properties are present 
-if (title&&text){
+  const { title, text } = req.body
+  //check if all properties are present 
+  if (title && text) {
     const newNote = {
-        title,
-        text,
-        note_id:uid(),
+      title,
+      text,
+      note_id: uid(),
     }
 
-//reading existing notes
-fs.readFile("./db/db.json","utf-8",(err,data)=>{
-    if (err){
+    //reading existing notes
+    fs.readFile("./db/db.json", "utf-8", (err, data) => {
+      if (err) {
         console.log(err)
-    }
-    else {
-        const parsedNotes=JSON.parse(data)
+      }
+      else {
+        const parsedNotes = JSON.parse(data)
         parsedNotes.push(newNote)
 
         //write the new note on the file
-        fs.writeFile('./db/db.json',JSON.stringify(parsedNotes,null,4),(writeErr)=>{
-            writeErr
+        fs.writeFile('./db/db.json', JSON.stringify(parsedNotes, null, 4), (writeErr) => {
+          writeErr
             //log if notes were updated successfully or not 
-             ? console.error(writeErr)
-             : console.info('Successfully updated notes!')
+            ? console.error(writeErr)
+            : console.info('Successfully updated notes!')
         });
-            }
-          });
-      
-          const response = {
-            status: 'success',
-            body: newNote,
-          };
-      
-          console.log(response);
-          res.status(201).json(response);
-        } else {
-          res.status(500).json('Error in posting review, missing value');
-        }
-      });
+      }
+    });
+
+    const response = {
+      status: 'success',
+      body: newNote,
+    };
+
+    console.log(response);
+    res.status(201).json(response);
+  } else {
+    res.status(500).json('Error in posting review, missing value');
+  }
+});
 
 //DELETE request 
 app.delete('/api/notes/:id', (req, res) => {
   //log that a delete request was received
-  var filteredNotes=[]
+  var filteredNotes = []
   console.log(`New ${req.method} request received for the id# ${req.params.id} note`)
 
 
@@ -102,38 +100,26 @@ app.delete('/api/notes/:id', (req, res) => {
     }
     else {
       const { id } = req.params;
-      //console.log(id)
-      //if (!id){return res.json('Please insert a valid id')}
-      //else{
       // Iterate through the terms name to check if it matches `req.params.id`
       for (let i = 0; i < notes.length; i++) {
-        if (id === notes[i].note_id){
+        if (id === notes[i].note_id) {
 
-        //create a new array of filtered notes without the one that has the same id we insert
-        filteredNotes = notes.filter(el => el.note_id != id )
-        
-      
-      
-      
-      fs.writeFile('./db/db.json', JSON.stringify(filteredNotes, null, 4), (writeErr) => {
-        writeErr
-          //log if notes were updated successfully or not 
-          ? console.error(writeErr)
-          : console.info('Done!')
-      })
-    return res.json(`Note ${id} deleted`)
-    }
-    }
-    return res.json('No match found');
-    
+          //create a new array of filtered notes without the one that has the same id we insert
+          filteredNotes = notes.filter(el => el.note_id != id)
 
-    
-  //}
-}})
-  
-  // Return a message if the note doesn't exist in our DB
-  //return res.json(notes[i])
-  //return res.json('Note successfully deleted')
+          fs.writeFile('./db/db.json', JSON.stringify(filteredNotes, null, 4), (writeErr) => {
+            writeErr
+              //log if notes were updated successfully or not 
+              ? console.error(writeErr)
+              : console.info('Done!')
+          })
+          return res.json(`Note ${id} deleted`)
+        }
+      }
+      return res.json('No match found');
+
+    }
+  })
 
 })
 
