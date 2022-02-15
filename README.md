@@ -22,12 +22,12 @@ Project is created with:
 * CSS
 * Node.js
 * Express.js
-* Deployed on Heroku
+
 
 ## Working Application
 
 The following image shows the web application's appearance:
-![Weather API appearance](./demo_screenshot.png)
+![Note Taker](./Develop/screenshots/demo_note_taker.png)
 
 ## Project Status
 
@@ -39,10 +39,12 @@ The following image shows the web application's appearance:
 Room for improvement:
 * Connect the backend with the frontend properly, so if we click on every icon, this works as it should
 * Add a new note dynamically because at the moment to see a new note added to our list we need to restart the app
+* Solve bug when deploying on heroku 
 
 ## Installation
 
-The application is deployed on heroku on: (https://damp-plateau-74738.herokuapp.com/)
+To run locally the application clone [this link](https://github.com/Nico749/Note_taker.git) on your local machine
+The application is deployed on [heroku](https://damp-plateau-74738.herokuapp.com/)
 
 ## License
 
