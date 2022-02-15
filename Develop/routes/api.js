@@ -4,11 +4,12 @@ const notes = require('../db/db.json')
 const fs = require('fs')
 
 router.get('/notes', (req, res) => {
+    console.log(`New ${req.method} request received`)
     res.json(notes)
 })
 
 router.get('/notes/:id', (req, res) => {
-
+    console.log(`New ${req.method} request received`)
     const requestedId = req.params.id
 
     for (let i = 0; i < notes.length; i++) {
