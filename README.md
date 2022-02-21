@@ -39,7 +39,7 @@ The following image shows the web application's appearance:
 Room for improvement:
 * Connect the backend with the frontend properly, so if we click on every icon, this works as it should
 * Add a new note dynamically because at the moment to see a new note added to our list we need to restart the app
-* Solve bug when deploying on heroku 
+
 
 ## Installation
 
